@@ -20,4 +20,4 @@ corona = corona[1:-1]
 coronaDict = ast.literal_eval(corona)
 count = str(coronaDict['confirmed'])
 Count = "В России " + count + " зараженных"
-CountNF = "В Наро-Фоминске 32 зараженных"
+CountNF = "В Наро-Фоминске 103 зараженных"

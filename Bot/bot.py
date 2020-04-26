@@ -1,14 +1,17 @@
 import telebot
 import config
 import weather
-from telebot import types
 import pyketiki
+import random
+from telebot import types
+from telebot import apihelper
 
+apihelper.proxy = {'https':'https://5.189.188.95:3128'}
 
 bot = telebot.TeleBot('964615920:AAEwHybjIse8w7tBe76kuMNBZpo6ckO23vg')
 markup = types.ReplyKeyboardMarkup()
 markup.row('коронавирус', 'погода')
-markup.row('пикеты')
+markup.row('пикеты', 'цитата Бакума')
 
 
 @bot.message_handler(commands=['start'])
@@ -29,6 +32,12 @@ def handle_message(message):
 def handle_message(message):
     bot.send_message(message.chat.id, pyketiki.piket, reply_markup=markup)
     
+@bot.message_handler(regexp="цитата Бакума")
+def handle_message(message):
+    bakum = random.randint(1, 24)
+    path = 'quotes\quote_' + str(bakum) + '.jpg'
+    photo = open(path, 'rb')
+    bot.send_photo(message.chat.id, photo, 't.me/bbredni')
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)
